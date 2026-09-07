@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Notas</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: Arial, sans-serif; background: #edf2f5; color: #1f2933; }
+      main { width: min(92vw, 430px); background: #ffffff; border: 1px solid #cbd5df; border-radius: 8px; padding: 28px; box-shadow: 0 10px 22px #1f29331a; }
+      h1 { margin: 0 0 8px; font-size: 26px; }
+      p { margin: 0 0 24px; color: #52606d; }
+      form { display: grid; gap: 14px; }
+      label { display: grid; gap: 6px; font-weight: 600; }
+      input { width: 100%; padding: 10px; border: 1px solid #9fb3c8; border-radius: 4px; font: inherit; }
+      button { margin-top: 8px; padding: 11px; border: 0; border-radius: 4px; background: #0b6e4f; color: white; font: inherit; font-weight: 700; cursor: pointer; }
+      #result { min-height: 24px; margin: 22px 0 0; font-weight: 700; }
+      .approved { color: #087f5b; }
+      .error { color: #b42318; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Calculadora de Notas</h1>
+      <p>Informe as tres notas do aluno para descobrir a media final.</p>
+      <form>
+        <label for="grade1">Nota 1 <input id="grade1" type="number" min="0" max="10" step="0.01" required /></label>
+        <label for="grade2">Nota 2 <input id="grade2" type="number" min="0" max="10" step="0.01" required /></label>
+        <label for="grade3">Nota 3 <input id="grade3" type="number" min="0" max="10" step="0.01" required /></label>
+        <button type="submit">Calcular media</button>
+      </form>
+      <p id="result" aria-live="polite"></p>
+    </main>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
