@@ -1,6 +1,6 @@
 # Calculadora de Notas
 
-[![CI](https://github.com/SEU_USUARIO/calculadora-notas-ci/actions/workflows/ci.yml/badge.svg)](https://github.com/SEU_USUARIO/calculadora-notas-ci/actions/workflows/ci.yml)
+[![CI](https://github.com/Ruskrill/calculadora-notas-ci/actions/workflows/ci.yml/badge.svg)](https://github.com/Ruskrill/calculadora-notas-ci/actions/workflows/ci.yml)
 
 Aplicacao web simples para calcular a media de tres notas e indicar a situacao do aluno:
 
