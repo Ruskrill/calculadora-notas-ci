@@ -26,14 +26,28 @@ O GitHub Actions instala as dependencias, executa os testes unitarios e gera o b
 
 Este projeto pode ser executado em um cluster Minikube dentro do Codespace. A imagem e construida localmente no ambiente do Minikube, portanto nao e necessario publicar uma imagem no Docker Hub.
 
-### 1. Preparar o cluster e a imagem
+### 1. Instalar as ferramentas, se necessario
+
+```bash
+if ! command -v kubectl >/dev/null 2>&1; then
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+fi
+
+if ! command -v minikube >/dev/null 2>&1; then
+  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  sudo install minikube-linux-amd64 /usr/local/bin/minikube
+fi
+```
+
+### 2. Preparar o cluster e a imagem
 
 ```bash
 minikube start --driver=docker --memory=2048
 minikube image build -t calculadora-notas:1.0 .
 ```
 
-### 2. Implantar a aplicacao
+### 3. Implantar a aplicacao
 
 ```bash
 kubectl apply -f k8s/deployment.yaml
@@ -43,7 +57,7 @@ kubectl get pods -o wide
 kubectl get svc calculadora-notas-service
 ```
 
-### 3. Acessar pelo Codespace
+### 4. Acessar pelo Codespace
 
 Em outro terminal, mantenha o encaminhamento ativo:
 
@@ -53,7 +67,7 @@ kubectl port-forward service/calculadora-notas-service 8080:80
 
 Abra a porta `8080` na aba **Ports** do Codespace.
 
-### 4. Escalar e atualizar
+### 5. Escalar e atualizar
 
 ```bash
 kubectl scale deployment calculadora-notas --replicas=4
@@ -72,10 +86,23 @@ Se precisar desfazer a atualizacao:
 kubectl rollout undo deployment/calculadora-notas
 ```
 
-### 5. Limpeza
+### 6. Limpeza
 
 ```bash
 kubectl delete -f k8s/service.yaml
 kubectl delete -f k8s/deployment.yaml
 minikube stop
+```
+
+### Evidencias para o AVA
+
+Para os prints do terminal, execute os comandos abaixo em sequencia e capture a tela quando cada resultado aparecer:
+
+```bash
+kubectl get nodes
+kubectl get pods -o wide
+kubectl get svc calculadora-notas-service
+kubectl scale deployment calculadora-notas --replicas=4
+kubectl get pods
+kubectl rollout status deployment/calculadora-notas
 ```
